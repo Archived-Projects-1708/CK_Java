@@ -7,7 +7,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <property name="hibernate.connection.url">jdbc:sqlserver://DESKTOP-HV7IPNG:1433;databaseName=JapaneseExamBank</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://DESKTOP-9U8KHKR:1433;databaseName=JapaneseExamBank;encrypt=false; trustServerCertificate=true</property>
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password">123</property>
 
@@ -19,7 +19,7 @@
         <property name="hibernate.format_sql">true</property>
 
         <!-- Tự động tạo/update bảng -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
 
         <!-- Mapping các entity class -->
         <!-- <mapping class="com.example.exambank.model.Question"/> -->
