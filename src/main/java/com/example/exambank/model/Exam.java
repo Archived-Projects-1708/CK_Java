@@ -40,4 +40,68 @@ public class Exam {
     // Constructors, getters/setters
     public Exam() {}
     // … getters & setters …
+
+    public Long getId() {
+        return id;
+    }
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public int getQuestionCount() {
+        return questionCount;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public List<ExamQuestion> getExamQuestions() {
+        return examQuestions;
+    }
+
+    public List<ExportedExam> getExports() {
+        return exports;
+    }
+
+    public void setExamQuestions(List<ExamQuestion> examQuestions) {
+        this.examQuestions = examQuestions;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public void setQuestionCount(int questionCount) {
+        this.questionCount = questionCount;
+    }
+
+    public void setExports(List<ExportedExam> exports) {
+        this.exports = exports;
+    }
 }
