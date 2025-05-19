@@ -15,9 +15,9 @@ import com.google.gson.JsonObject;
 public class ImageChatCompletion {
     private static final String API_TOKEN = "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";
     private static final String ENDPOINT = "https://models.github.ai/inference/chat/completions";
-    private static final String MODEL_NAME = "openai/gpt-4o-mini";
+    private static final String MODEL_NAME = "openai/gpt-4o";
 
-    // 1. Đặt systemPrompt thành static
+   //  Đặt systemPrompt
     private static final String SYSTEM_PROMPT = """
         You are an advanced OCR system specialized in extracting Japanese text from images of academic exam sheets. You MUST follow these constraints strictly:
 
