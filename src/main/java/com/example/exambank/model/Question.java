@@ -9,44 +9,32 @@ import java.util.List;
 @Entity
 @Table(name = "questions")
 public class Question {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "NVARCHAR(MAX)", nullable = false)
-    private String content;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;         // câu hỏi với chỗ trống
 
-    @Column(columnDefinition = "NVARCHAR(MAX)", nullable = false)
-    private String answer;
+    @ManyToOne @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
-    @Column(name = "ai_answer_hint", columnDefinition = "NVARCHAR(MAX)")
-    private String aiAnswerHint;
+    @ManyToOne @JoinColumn(name = "level_id", nullable = false)
+    private Level level;
+
+    @Column(name = "suggested_answer", length = 255)
+    private String suggestedAnswer; // gợi ý từ AI
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AnswerOption> options = new ArrayList<>();
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExamQuestion> examQuestions = new ArrayList<>();
 
-    // Constructors
+    // Constructors, getters/setters
     public Question() {}
-
-    public Question(String content, String answer, String aiAnswerHint) {
-        this.content = content;
-        this.answer = answer;
-        this.aiAnswerHint = aiAnswerHint;
-    }
-    public List<ExamQuestion> getExamQuestions() { return examQuestions; }
-    public void setExamQuestions(List<ExamQuestion> examQuestions) { this.examQuestions = examQuestions; }
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
-    public String getAnswer() { return answer; }
-    public void setAnswer(String answer) { this.answer = answer; }
-    public String getAiAnswerHint() { return aiAnswerHint; }
-    public void setAiAnswerHint(String aiAnswerHint) { this.aiAnswerHint = aiAnswerHint; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    // … getters & setters …
 }
-

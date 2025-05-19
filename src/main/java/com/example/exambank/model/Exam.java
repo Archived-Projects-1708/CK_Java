@@ -9,18 +9,23 @@ import java.util.List;
 @Entity
 @Table(name = "exams")
 public class Exam {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false, length = 150)
+    private String title;
 
-    @Column(name = "exam_file_path")
-    private String examFilePath;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    @Column(name = "answer_key_path")
-    private String answerKeyPath;
+    @ManyToOne @JoinColumn(name = "category_id")
+    private Category category;   // null nếu tổng hợp
+
+    @ManyToOne @JoinColumn(name = "level_id")
+    private Level level;         // null nếu đa cấp độ
+
+    @Column(name = "question_count", nullable = false)
+    private int questionCount;   // số câu khi export
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -29,27 +34,10 @@ public class Exam {
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExamQuestion> examQuestions = new ArrayList<>();
 
-    // Getters, Setters, Constructors
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExportedExam> exports = new ArrayList<>();
+
+    // Constructors, getters/setters
     public Exam() {}
-
-    public void setExamQuestions(List<ExamQuestion> examQuestions) {
-        this.examQuestions = examQuestions;
-    }
-
-    // Thêm phương thức để quản lý quan hệ
-    public void addQuestion(Question question, int order) {
-        ExamQuestion examQuestion = new ExamQuestion(this, question, order);
-        examQuestions.add(examQuestion);
-        question.getExamQuestions().add(examQuestion);
-    }
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getExamFilePath() { return examFilePath; }
-    public void setExamFilePath(String examFilePath) { this.examFilePath = examFilePath; }
-    public String getAnswerKeyPath() { return answerKeyPath; }
-    public void setAnswerKeyPath(String answerKeyPath) { this.answerKeyPath = answerKeyPath; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public List<ExamQuestion> getExamQuestions() { return examQuestions; }
+    // … getters & setters …
 }

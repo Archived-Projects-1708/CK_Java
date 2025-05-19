@@ -5,37 +5,24 @@ import javax.persistence.*;
 @Entity
 @Table(name = "exam_questions")
 public class ExamQuestion {
-    @EmbeddedId
-    private ExamQuestionId id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("examId")
-    @JoinColumn(name = "exam_id")
+    @ManyToOne @JoinColumn(name = "exam_id", nullable = false)
     private Exam exam;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("questionId")
-    @JoinColumn(name = "question_id")
+    @ManyToOne @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
-    @Column(name = "question_order", nullable = false)
-    private Integer questionOrder;
+    @Column(name = "display_order", nullable = false)
+    private int displayOrder;
 
-    // Getters, Setters, Constructors
+    // Constructors, getters/setters
     public ExamQuestion() {}
-
-    public ExamQuestion(Exam exam, Question question, int order) {
-        this.id = new ExamQuestionId(exam.getId(), question.getId());
+    public ExamQuestion(Exam exam, Question question, int displayOrder) {
         this.exam = exam;
         this.question = question;
-        this.questionOrder = order;
+        this.displayOrder = displayOrder;
     }
-    public ExamQuestionId getId() { return id; }
-    public void setId(ExamQuestionId id) { this.id = id; }
-    public Exam getExam() { return exam; }
-    public void setExam(Exam exam) { this.exam = exam; }
-    public Question getQuestion() { return question; }
-    public void setQuestion(Question question) { this.question = question; }
-    public Integer getOrder() { return questionOrder; }
-    public void setOrder(Integer orderNo) { this.questionOrder = orderNo; }
+    // … getters & setters …
 }
