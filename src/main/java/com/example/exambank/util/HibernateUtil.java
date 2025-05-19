@@ -15,7 +15,18 @@ public class HibernateUtil {
     private static SessionFactory buildSessionFactory() {
         try {
             // Load Hibernate configuration
-            Configuration configuration = new Configuration();
+            Configuration configuration = new Configuration()
+                    .configure("hibernate.cfg.xml")
+
+                    // 2. Register every @Entity so Hibernate knows to map them
+                    .addAnnotatedClass(com.example.exambank.model.Category.class)
+                    .addAnnotatedClass(com.example.exambank.model.Level.class)
+                    .addAnnotatedClass(com.example.exambank.model.Question.class)
+                    .addAnnotatedClass(com.example.exambank.model.AnswerOption.class)
+                    .addAnnotatedClass(com.example.exambank.model.Exam.class)
+                    .addAnnotatedClass(com.example.exambank.model.ExamQuestion.class)
+                    .addAnnotatedClass(com.example.exambank.model.ExportedExam.class);
+
 
             // Load config.properties
             Properties props = new Properties();
@@ -25,7 +36,7 @@ public class HibernateUtil {
 
             // Apply properties to Hibernate configuration
             configuration.setProperties(props);
-            configuration.configure("hibernate.cfg.xml"); // Load XML mappings
+            // configuration.configure("hibernate.cfg.xml"); // Load XML mappings
 
             // Build SessionFactory
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

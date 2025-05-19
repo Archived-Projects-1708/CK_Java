@@ -19,10 +19,18 @@
         <property name="hibernate.format_sql">true</property>
 
         <!-- Tự động tạo/update bảng -->
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mapping các entity class -->
         <!-- <mapping class="com.example.exambank.model.Question"/> -->
         <!-- <mapping class="com.example.exambank.model.Exam"/> -->
+        <mapping class="com.example.exambank.model.Category"/>
+        <mapping class="com.example.exambank.model.Level"/>
+        <mapping class="com.example.exambank.model.Question"/>
+        <mapping class="com.example.exambank.model.AnswerOption"/>
+        <mapping class="com.example.exambank.model.Exam"/>
+        <mapping class="com.example.exambank.model.ExamQuestion"/>
+        <mapping class="com.example.exambank.model.ExportedExam"/>
+
     </session-factory>
 </hibernate-configuration>
