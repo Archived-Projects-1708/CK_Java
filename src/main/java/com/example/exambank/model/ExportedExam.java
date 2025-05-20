@@ -32,5 +32,38 @@ public class ExportedExam {
         this.answerKeyPath = answerKeyPath;
     }
     // … getters & setters …
+
+    public Long getId() {
+        return id;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
+    }
+
+    public String getPaperPath() {
+        return paperPath;
+    }
+
+    public void setPaperPath(String paperPath) {
+        this.paperPath = paperPath;
+    }
+
+    public String getAnswerKeyPath() {
+        return answerKeyPath;
+    }
+
+    public void setAnswerKeyPath(String answerKeyPath) {
+        this.answerKeyPath = answerKeyPath;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
 }
 
