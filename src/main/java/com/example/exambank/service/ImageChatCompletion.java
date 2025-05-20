@@ -138,4 +138,5 @@ public class ImageChatCompletion {
         String b64 = Base64.getEncoder().encodeToString(bytes);
         return "data:image/" + format + ";base64," + b64;
     }
+
 }
