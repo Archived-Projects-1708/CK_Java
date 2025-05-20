@@ -37,4 +37,60 @@ public class Question {
     // Constructors, getters/setters
     public Question() {}
     // … getters & setters …
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public String getSuggestedAnswer() {
+        return suggestedAnswer;
+    }
+
+    public void setSuggestedAnswer(String suggestedAnswer) {
+        this.suggestedAnswer = suggestedAnswer;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public List<AnswerOption> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<AnswerOption> options) {
+        this.options = options;
+    }
+
+    public List<ExamQuestion> getExamQuestions() {
+        return examQuestions;
+    }
+
+    public void setExamQuestions(List<ExamQuestion> examQuestions) {
+        this.examQuestions = examQuestions;
+    }
 }
