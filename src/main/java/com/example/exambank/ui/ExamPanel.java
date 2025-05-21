@@ -1,5 +1,13 @@
 package com.example.exambank.ui;
 
+import com.example.exambank.model.Category;
+import com.example.exambank.model.Level;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.util.List;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,33 +21,62 @@ public class ExamPanel extends JPanel {
     private JButton btnExport;
 
     public ExamPanel() {
+        // 1) Instantiate
+        cbCategory = new JComboBox<>();
+        cbLevel    = new JComboBox<>();
+        btnFilter  = new JButton("Lọc");
+        tblExams   = new JTable();
+        btnCreate  = new JButton("Tạo mới");
+        btnEdit    = new JButton("Sửa");
+        btnDelete  = new JButton("Xóa");
+        btnExport  = new JButton("Xuất PDF/DOC");
         setLayout(new BorderLayout(10,10));
 
         // Top: filter
-        JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        cbCategory = new JComboBox<>();
-        cbLevel = new JComboBox<>();
-        btnFilter = new JButton("Lọc");
-        filterPanel.add(new JLabel("Loại:")); filterPanel.add(cbCategory);
-        filterPanel.add(new JLabel("Cấp độ:")); filterPanel.add(cbLevel);
-        filterPanel.add(btnFilter);
-        add(filterPanel, BorderLayout.NORTH);
+        JPanel filterPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.WEST;
 
-        // Center: table
-        tblExams = new JTable();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        filterPanel.add(new JLabel("Loại:"), gbc);
+
+        gbc.gridx = 1;
+        filterPanel.add(cbCategory, gbc);
+
+        gbc.gridx = 2;
+        filterPanel.add(new JLabel("Cấp độ:"), gbc);
+
+        gbc.gridx = 3;
+        filterPanel.add(cbLevel, gbc);
+
+        gbc.gridx = 4;
+        filterPanel.add(btnFilter, gbc);
+
         add(new JScrollPane(tblExams), BorderLayout.CENTER);
 
-        // Bottom: actions
-        JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        btnCreate = new JButton("Tạo mới");
-        btnEdit = new JButton("Sửa");
-        btnDelete = new JButton("Xóa");
-        btnExport = new JButton("Xuất PDF/DOC");
+        JPanel actionPanel = new JPanel();
+        actionPanel.setLayout(new BoxLayout(actionPanel, BoxLayout.X_AXIS));
+        actionPanel.add(Box.createHorizontalGlue());
         actionPanel.add(btnCreate);
         actionPanel.add(btnEdit);
         actionPanel.add(btnDelete);
         actionPanel.add(btnExport);
         add(actionPanel, BorderLayout.SOUTH);
+        add(filterPanel, BorderLayout.NORTH);
+    }
+
+    public void loadCategoriesAndLevels(java.util.List<Category> categories,java.util.List<Level> levels) {
+        cbCategory.removeAllItems();
+        cbLevel.removeAllItems();
+
+        for (Category c : categories) {
+            cbCategory.addItem(c.getName());
+        }
+        for (Level l : levels) {
+            cbLevel.addItem(l.getName());
+        }
     }
 
     // Getters for wiring
