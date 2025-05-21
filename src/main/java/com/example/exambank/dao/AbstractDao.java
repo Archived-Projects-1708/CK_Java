@@ -22,7 +22,7 @@ public abstract class AbstractDao<T, K extends Serializable> implements Dao<T, K
     }
 
     @Override
-    public List<T> findAll() {
+    public List<T> findAll()  {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM " + entityClass.getSimpleName(), entityClass).list();
         }

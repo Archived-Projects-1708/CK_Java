@@ -19,4 +19,5 @@ public class CategoryDao extends AbstractDao<Category, Long> {
             return Optional.ofNullable(category);
         }
     }
+
 }
