@@ -22,8 +22,6 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mapping các entity class -->
-        <!-- <mapping class="com.example.exambank.model.Question"/> -->
-        <!-- <mapping class="com.example.exambank.model.Exam"/> -->
         <mapping class="com.example.exambank.model.Category"/>
         <mapping class="com.example.exambank.model.Level"/>
         <mapping class="com.example.exambank.model.Question"/>
