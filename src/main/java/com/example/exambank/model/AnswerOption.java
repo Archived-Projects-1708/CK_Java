@@ -17,7 +17,7 @@ public class AnswerOption {
     @ManyToOne @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(name = "content",columnDefinition = "NVARCHAR(MAX)", nullable = false)
     private String content;      // nội dung lựa chọn
 
     @Column(length = 1, nullable = false)

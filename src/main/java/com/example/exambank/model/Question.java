@@ -12,7 +12,7 @@ public class Question {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(name = "content",columnDefinition = "NVARCHAR(MAX)", nullable = false)
     private String content;         // câu hỏi với chỗ trống
 
     @ManyToOne @JoinColumn(name = "category_id", nullable = false)
@@ -21,7 +21,7 @@ public class Question {
     @ManyToOne @JoinColumn(name = "level_id", nullable = false)
     private Level level;
 
-    @Column(name = "suggested_answer", length = 255)
+    @Column(name = "suggested_answer",columnDefinition = "NVARCHAR(MAX)" ,length = 255)
     private String suggestedAnswer; // gợi ý từ AI
 
     @CreationTimestamp
