@@ -1,5 +1,8 @@
 package com.example.exambank.service;
 
+import com.example.exambank.dao.CategoryDao;
+import com.example.exambank.dao.LevelDao;
+import com.example.exambank.dao.QuestionDao;
 import com.example.exambank.model.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,10 +15,14 @@ import java.util.List;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.GsonBuilder;
 import java.io.StringReader;
+import java.util.Optional;
 
 public class QuestionImportService {
         @PersistenceContext
         private EntityManager em;
+        private final CategoryDao categoryDao;
+        private final LevelDao levelDao;
+        private final QuestionDao questionDao;
 
         public void importFromImage(Component parent, String category, String level) {
             // Hiển thị dialog chọn file
@@ -66,15 +73,13 @@ public class QuestionImportService {
         }
 
         private Category getCategoryByName(String name) {
-            return em.createQuery("SELECT c FROM Category c WHERE c.name = :name", Category.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
+            return categoryDao.findByName(name)
+                .orElseThrow(() -> new RuntimeException("Category not found: " + name));
         }
 
         private Level getLevelByName(String name) {
-            return em.createQuery("SELECT l FROM Level l WHERE l.name = :name", Level.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
+            return levelDao.findByName(name)
+                .orElseThrow(() -> new RuntimeException("Level not found: " + name));
         }
 
         private void saveQuestions(List<QuestionData> questions, Category category, Level level) {
@@ -82,6 +87,10 @@ public class QuestionImportService {
             tx.begin();
             try {
                 for (QuestionData q : questions) {
+                    Optional<Question> existingQuestion = questionDao.findByName(q.question);
+                    if (existingQuestion.isPresent()) {
+                        continue; // Bỏ qua nếu câu hỏi đã tồn tại
+                    }
                     Question question = new Question();
                     question.setContent(q.question);
                     question.setCategory(category);
@@ -104,11 +113,10 @@ public class QuestionImportService {
                     em.persist(question);
                 }
                 tx.commit();
-            }
-        catch (Exception ex) {
-            tx.rollback();
-            throw ex;
-            }
+            } catch (Exception ex) {
+                    tx.rollback();
+                    throw ex;
+                }
         }
 
         private static class QuestionData {
@@ -122,5 +130,8 @@ public class QuestionImportService {
         }
         public QuestionImportService(EntityManager em) {
             this.em = em;
+            this.categoryDao = new CategoryDao();
+            this.levelDao = new LevelDao();
+            this.questionDao = new QuestionDao();
         }
 }

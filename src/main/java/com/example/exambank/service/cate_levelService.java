@@ -1,22 +1,27 @@
 package com.example.exambank.service;
 
+import com.example.exambank.dao.CategoryDao;
+import com.example.exambank.dao.LevelDao;
 import com.example.exambank.model.Category;
 import com.example.exambank.model.Level;
-import com.example.exambank.util.HibernateUtil;
-import org.hibernate.Session;
+
 
 import java.util.List;
 
 public class cate_levelService {
+    private final CategoryDao categoryDao;
+    private final LevelDao levelDao;
+
+    public cate_levelService() {
+        this.categoryDao = new CategoryDao();
+        this.levelDao = new LevelDao();
+    }
+
     public List<Category> getAllCategories() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Category", Category.class).list();
-        }
+        return categoryDao.findAll();
     }
 
     public List<Level> getAllLevels() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Level", Level.class).list();
-        }
+        return levelDao.findAll();
     }
 }
