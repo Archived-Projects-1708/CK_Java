@@ -2,8 +2,10 @@ package com.example.exambank.ui;
 
 import com.example.exambank.model.Category;
 import com.example.exambank.model.Level;
+import com.example.exambank.service.ExamController;
 import com.example.exambank.service.QuestionImportService;
 import com.example.exambank.service.cate_levelService;
+import com.example.exambank.service.QuestionBankController;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -47,6 +49,9 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 700);
         setLocationRelativeTo(null);
+
+        new QuestionBankController(questionBankPanel);
+        new ExamController(examPanel);
     }
 
     // Bootstraps the UI
